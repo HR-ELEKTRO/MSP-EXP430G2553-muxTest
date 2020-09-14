@@ -30,13 +30,13 @@ int main(void)
     // stop watchdog timer
     WDTCTL = WDTPW | WDTHOLD;
     
-    // Pin 1.0 = rode led
-    // Pin 1.6 = groene led
+    // Pin 1.0 = groene led
+    // Pin 1.6 = rode led
     
     P1DIR = 1<<6 | 1<<2 | 1<<1 | 1<<0;
     P1OUT = 0;
     P2DIR = 1<<3 | 1<<2 | 1<<1 | 1<<0;
-    P1OUT = 0;
+    P2OUT = 0;
 
     uint8_t select, input;
     bool output, expected_output;
@@ -53,12 +53,12 @@ int main(void)
             expected_output = mux(select, input);
             if (output != expected_output)
             {
-                P1OUT |= 1<<0;
+                P1OUT |= 1<<6;
                 while (1); // stop when error is found
             }
         }
     }
-    P1OUT |= 1<<6;
+    P1OUT |= 1<<0; 
     	
-	return 0;
+    return 0;
 }
